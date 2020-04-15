@@ -5,7 +5,7 @@ import { createAppContainer } from 'react-navigation'
 import Search from '../Components/Search'
 import FilmDetails from '../Components/FilmDetails'
 import Favourites from '../Components/Favourites'
-import { StyleSheet, Image, Text } from 'react-native'
+import { StyleSheet, Image } from 'react-native'
 import LastNewFilms from '../Components/LastNewFilms'
 
 const SearchStackNavigator = createStackNavigator({
@@ -50,6 +50,16 @@ const LastNewFilmsStackNavigator = createStackNavigator({
             headerStyle: {
                 backgroundColor: 'grey'
             }
+        }
+    },
+    FilmDetails: {
+        screen: FilmDetails,
+        navigationOptions: {
+            title: 'Détails du film',
+            headerStyle: {
+                backgroundColor: 'grey'
+            },
+            headerBackTitle: 'Retour'
         }
     }
 })

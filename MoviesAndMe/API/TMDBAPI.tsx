@@ -18,9 +18,9 @@ export function getFilmDetailFromApi(id: number) {
         .catch(error => console.error(error))
 }
 
-export function getLastNewFilms() {
+export function getLastNewFilms(page) {
     const url: string = 'https://api.themoviedb.org/3/discover/movie?api_key=' + API_TOKEN +
-    '&vote_count.gte=1000&sort_by=release_date.desc&language=fr&page=1'
+    '&vote_count.gte=1000&sort_by=release_date.desc&language=fr&page=' + page
     return fetch(url).then(response => response.json())
         .catch(error => console.log(error))
 }
