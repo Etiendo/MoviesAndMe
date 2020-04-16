@@ -21,3 +21,5 @@ function toggleSeen(state: any = initialState, action: any) {
             return state
     }
 }
+
+export default toggleSeen
