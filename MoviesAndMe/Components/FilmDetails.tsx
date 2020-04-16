@@ -1,9 +1,10 @@
 import React from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, Share, TouchableOpacity, Platform } from 'react-native'
+import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, Share, TouchableOpacity, Platform, Button } from 'react-native'
 import { getFilmDetailFromApi, getImageFromApi } from '../API/TMDBAPI'
 import moment from 'moment'
 import { connect } from 'react-redux'
 import EnlargeShrink from '../Animations/EnlargeShrink'
+import { color } from 'react-native-reanimated'
 
 class FilmDetails extends React.Component {
 
@@ -109,6 +110,9 @@ class FilmDetails extends React.Component {
                     <Text style={styles.detail_text}>Budget : {film.budget} $</Text>
                     <Text style={styles.detail_text}>Genre(s) : {film.genres.map(genre => { return genre['name'] }).join('/')}</Text>
                     <Text style={styles.detail_text}>Genre(s) : {film.production_companies.map(company => { return company['name'] }).join('/')}</Text>
+                    <View style={styles.seen_film_button}>
+                        <Button color='white' title='Marquer comme vu' onPress={() => console.log('ça marche')} />
+                    </View>
                 </ScrollView>
             )
         }
@@ -208,6 +212,10 @@ const styles = StyleSheet.create({
     },
     share_touchable_headerrightbutton: {
         marginRight: 8
+    },
+    seen_film_button: {
+        marginTop: 20,
+        backgroundColor: 'rgb(0, 122, 255)'
     }
 })
 

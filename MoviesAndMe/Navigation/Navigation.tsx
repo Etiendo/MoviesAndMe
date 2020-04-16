@@ -7,6 +7,7 @@ import FilmDetails from '../Components/FilmDetails'
 import Favourites from '../Components/Favourites'
 import { StyleSheet, Image } from 'react-native'
 import LastNewFilms from '../Components/LastNewFilms'
+import Seen from '../Components/Seen'
 
 const SearchStackNavigator = createStackNavigator({
     Search: {
@@ -43,13 +44,35 @@ const FavouritesStackNavigator = createStackNavigator({
 })
 
 const LastNewFilmsStackNavigator = createStackNavigator({
-    LastNewFilms : {
+    LastNewFilms: {
         screen: LastNewFilms,
         navigationOptions: {
             title: 'Dernières sorties',
             headerStyle: {
                 backgroundColor: 'grey'
             }
+        }
+    },
+    FilmDetails: {
+        screen: FilmDetails,
+        navigationOptions: {
+            title: 'Détails du film',
+            headerStyle: {
+                backgroundColor: 'grey'
+            },
+            headerBackTitle: 'Retour'
+        }
+    }
+})
+
+const FilmsSeenStackNavigator = createStackNavigator({
+    Seen: {
+        screen: Seen,
+        navigationOptions: {
+            title: 'Films déjà vus',
+            headerStyle: {
+                backgroundColor: 'grey'
+            },
         }
     },
     FilmDetails: {
@@ -91,8 +114,18 @@ const MoviesTabNavigator = createBottomTabNavigator(
             navigationOptions: {
                 tabBarIcon: () => {
                     return <Image
-                    source={require('../Images/ic_fiber_new.png')}
-                    style={styles.icon} />
+                        source={require('../Images/ic_fiber_new.png')}
+                        style={styles.icon} />
+                }
+            }
+        },
+        FilmsSeen: {
+            screen: FilmsSeenStackNavigator,
+            navigationOptions: {
+                tabBarIcon: () => {
+                    return <Image
+                        source={require('../Images/ic_movie_seen.png')}
+                        style={styles.icon} />
                 }
             }
         }
