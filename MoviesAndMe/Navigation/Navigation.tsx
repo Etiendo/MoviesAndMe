@@ -40,6 +40,16 @@ const FavouritesStackNavigator = createStackNavigator({
                 backgroundColor: 'grey'
             }
         }
+    },
+    FilmDetails: {
+        screen: FilmDetails,
+        navigationOptions: {
+            title: 'Détails du film',
+            headerStyle: {
+                backgroundColor: 'grey'
+            },
+            headerBackTitle: 'Retour'
+        }
     }
 })
 

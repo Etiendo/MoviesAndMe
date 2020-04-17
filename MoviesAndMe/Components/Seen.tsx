@@ -10,7 +10,14 @@ class Seen extends React.Component {
         const emptyListMessage = <Text>Liste de films vus vide</Text>
         return (
             <View style={styles.main_container}>
-                <Text>Films seens component works !</Text>
+                <View style={styles.avatar_container}>
+                    <Avatar />
+                </View>
+                <FilmList
+                    films={this.props.seenFilms}
+                    navigation={this.props.navigation}
+                    isFavouriteList={false} />
+                <View style={styles.empty_message}>{this.props.seenFilms.length === 0 ? emptyListMessage : null}</View>
             </View>
         )
     }
@@ -29,4 +36,10 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Seen
+const mapStateToProps = (state: any) => {
+    return {
+        seenFilms: state.toggleSeen.seenFilms
+    }
+}
+
+export default connect(mapStateToProps)(Seen)

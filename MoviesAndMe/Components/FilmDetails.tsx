@@ -4,7 +4,6 @@ import { getFilmDetailFromApi, getImageFromApi } from '../API/TMDBAPI'
 import moment from 'moment'
 import { connect } from 'react-redux'
 import EnlargeShrink from '../Animations/EnlargeShrink'
-import { color } from 'react-native-reanimated'
 
 class FilmDetails extends React.Component {
 
@@ -27,7 +26,7 @@ class FilmDetails extends React.Component {
         super(props)
         this.state = {
             film: undefined,
-            isLoading: true
+            isLoading: false
         }
         this._shareFilm = this._shareFilm.bind(this)
     }
@@ -88,6 +87,27 @@ class FilmDetails extends React.Component {
         )
     }
 
+    _toggleSeen() {
+        const action = { type: 'TOGGLE_SEEN', value: this.state.film }
+        this.props.dispatch(action)
+    }
+
+    _displaySeenButton() {
+        if (this.props.seenFilms.findIndex(item => item.id === this.state.film.id) !== -1) {
+            return (
+                <View style={styles.seen_film_button}>
+                    <Button color='white' title='Non vu' onPress={() => this._toggleSeen()} />
+                </View>
+            )
+        } else {
+            return (
+                <View style={styles.seen_film_button}>
+                    <Button color='white' title='Marquer comme vu' onPress={() => this._toggleSeen()} />
+                </View>
+            )
+        }
+    }
+
     _displayFilm() {
         const film = this.state.film
         if (film != undefined) {
@@ -110,9 +130,7 @@ class FilmDetails extends React.Component {
                     <Text style={styles.detail_text}>Budget : {film.budget} $</Text>
                     <Text style={styles.detail_text}>Genre(s) : {film.genres.map(genre => { return genre['name'] }).join('/')}</Text>
                     <Text style={styles.detail_text}>Genre(s) : {film.production_companies.map(company => { return company['name'] }).join('/')}</Text>
-                    <View style={styles.seen_film_button}>
-                        <Button color='white' title='Marquer comme vu' onPress={() => console.log('ça marche')} />
-                    </View>
+                    {this._displaySeenButton()}
                 </ScrollView>
             )
         }
@@ -221,7 +239,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
     return {
-        favouriteFilms: state.toggleFavourite.favouriteFilms
+        favouriteFilms: state.toggleFavourite.favouriteFilms,
+        seenFilms: state.toggleSeen.seenFilms
     }
 }
 

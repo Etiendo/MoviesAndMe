@@ -16,8 +16,7 @@ class Favourites extends React.Component {
                 <FilmList
                     films={this.props.favouriteFilms}
                     navigation={this.props.navigation}
-                    isFavouriteList={true}
-                />
+                    isFavouriteList={true} />
                 <View style={styles.empty_message}>{this.props.favouriteFilms.length === 0 ? emptyListMessage : null}</View>
             </View>
         )
