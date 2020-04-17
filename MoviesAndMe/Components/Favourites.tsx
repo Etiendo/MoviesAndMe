@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import FilmList from './FilmList'
 import { connect } from 'react-redux'
-import Avatar from './Avatar'
 
 class Favourites extends React.Component {
 
@@ -10,9 +9,6 @@ class Favourites extends React.Component {
         const emptyListMessage = <Text>Liste de films favoris vide</Text>
         return (
             <View style={styles.main_container}>
-                <View style={styles.avatar_container}>
-                    <Avatar/>
-                </View>
                 <FilmList
                     films={this.props.favouriteFilms}
                     navigation={this.props.navigation}
@@ -29,9 +25,6 @@ const styles = StyleSheet.create({
     },
     empty_message: {
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-    avatar_container: {
         alignItems: 'center'
     }
 })

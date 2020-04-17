@@ -25,7 +25,8 @@ class FilmList extends React.Component {
                 renderItem={({ item }) => (
                     <FilmItem film={item}
                         isFavourite={(this.props.favouriteFilms.findIndex(film => film.id === item.id) !== -1) ? true : false}
-                        displayDetailsForFilm={this._displayDetailsForFilm} />
+                        displayDetailsForFilm={this._displayDetailsForFilm}
+                        showSeenList={this.props.showSeenList} />
                 )}
                 onEndReachedThreshold={0.5}
                 onEndReached={() => {

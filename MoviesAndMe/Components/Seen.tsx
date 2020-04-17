@@ -2,21 +2,24 @@ import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import FilmList from './FilmList'
 import { connect } from 'react-redux'
-import Avatar from './Avatar'
 
 class Seen extends React.Component {
+    constructor(props: any) {
+        super(props)
+        this.state = {
+            showSeenList: true
+        }
+    }
 
     render() {
         const emptyListMessage = <Text>Liste de films vus vide</Text>
         return (
             <View style={styles.main_container}>
-                <View style={styles.avatar_container}>
-                    <Avatar />
-                </View>
                 <FilmList
                     films={this.props.seenFilms}
                     navigation={this.props.navigation}
-                    isFavouriteList={false} />
+                    isFavouriteList={false}
+                    showSeenList={this.state.showSeenList} />
                 <View style={styles.empty_message}>{this.props.seenFilms.length === 0 ? emptyListMessage : null}</View>
             </View>
         )
@@ -29,9 +32,6 @@ const styles = StyleSheet.create({
     },
     empty_message: {
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-    avatar_container: {
         alignItems: 'center'
     }
 })

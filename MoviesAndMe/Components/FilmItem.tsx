@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity, Button } from 'react-native'
 import { getImageFromApi } from '../API/TMDBAPI'
 import FadeIn from '../Animations/FadeIn'
+import moment from 'moment'
 
 class FilmItem extends React.Component {
     constructor(props: any) {
@@ -18,11 +19,16 @@ class FilmItem extends React.Component {
         }
     }
 
-    render() {
-        const film: any = this.props.film
-        const displayDetailsForFilm: any = this.props.displayDetailsForFilm
-        return (
-            <FadeIn>
+    _switchRendering() {
+        console.log('showSeenList', this.props.showSeenList)
+        if (this.props.showSeenList) {
+            return (
+                <Text>Show seen list works !</Text>
+            )
+        } else {
+            const film: any = this.props.film
+            const displayDetailsForFilm: any = this.props.displayDetailsForFilm
+            return (
                 <TouchableOpacity style={styles.main_container}
                     onPress={() => displayDetailsForFilm(film.id)}>
                     <Image
@@ -39,10 +45,18 @@ class FilmItem extends React.Component {
                             <Text style={styles.description_text} numberOfLines={6}>{film.overview}</Text>
                         </View>
                         <View style={styles.date_container}>
-                            <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
+                            <Text style={styles.date_text}>Sorti le {moment(new Date(film.release_date)).format('DD/MM/YYYY')}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
+            )
+        }
+    }
+
+    render() {
+        return (
+            <FadeIn>
+                {this._switchRendering()}
             </FadeIn>
         )
     }
