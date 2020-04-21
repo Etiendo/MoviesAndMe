@@ -18,9 +18,6 @@ class Avatar extends React.Component {
             } else {
                 console.log('Photo : ', response.uri)
                 let requireSource = { uri: response.uri }
-                // this.setState({
-                //     avatar: requireSource
-                // })
                 const action = { type: 'SET_AVATAR', value: requireSource }
                 this.props.dispatch(action)
             }

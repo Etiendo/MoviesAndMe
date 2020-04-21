@@ -7,6 +7,9 @@ import moment from 'moment'
 class FilmItem extends React.Component {
     constructor(props: any) {
         super(props)
+        this.state = {
+            isDateToggle: false
+        }
     }
 
     _displayFavouriteImage() {
@@ -19,14 +22,47 @@ class FilmItem extends React.Component {
         }
     }
 
-    _switchRendering() {
-        console.log('showSeenList', this.props.showSeenList)
-        if (this.props.showSeenList) {
+    _toggleReleaseDate() {
+        if (this.state.isDateToggle) {
+            this.setState({
+                isDateToggle: false
+            })
+        } else {
+            this.setState({
+                isDateToggle: true
+            })
+        }
+    }
+
+    _switchTitleAndReleaseDate() {
+        const film: any = this.props.film
+        if (this.state.isDateToggle) {
             return (
-                <Text>Show seen list works !</Text>
+                <Text style={styles.seen_title_text}>Sorti le {moment(new Date(film.release_date)).format('DD/MM/YYYY')}</Text>
             )
         } else {
-            const film: any = this.props.film
+            return (
+                <Text style={styles.seen_title_text}>{film.title}</Text>
+            )
+        }
+    }
+
+    _switchRendering() {
+        const film: any = this.props.film
+        if (this.props.showSeenList) {
+            return (
+                <TouchableOpacity style={styles.main_seen_container}
+                    onLongPress={() => this._toggleReleaseDate() } >
+                    <Image
+                        style={styles.image_seen_film}
+                        source={{ uri: getImageFromApi(film.poster_path) }}
+                    />
+                    <View style={styles.content_container}>
+                        {this._switchTitleAndReleaseDate()}
+                    </View>
+                </TouchableOpacity>
+            )
+        } else {
             const displayDetailsForFilm: any = this.props.displayDetailsForFilm
             return (
                 <TouchableOpacity style={styles.main_container}
@@ -66,12 +102,26 @@ const styles = StyleSheet.create({
     main_container: {
         height: 190,
         flexDirection: 'row',
-        margin: 10
+        marginLeft: 10,
+        marginRight: 10,
+    },
+    main_seen_container: {
+        height: 120,
+        flexDirection: 'row',
+        marginLeft: 10,
+        marginRight: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     image_container: {
         width: 120,
         height: 180,
         margin: 5,
+    },
+    image_seen_film: {
+        width: 100,
+        height: 100,
+        borderRadius: 60
     },
     content_container: {
         flex: 1,
@@ -92,6 +142,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         flexWrap: 'wrap',
         paddingRight: 5
+    },
+    seen_title_text: {
+        color: '#666666',
+        fontSize: 15,
+        margin: 5
     },
     description_text: {
         fontStyle: 'italic',
